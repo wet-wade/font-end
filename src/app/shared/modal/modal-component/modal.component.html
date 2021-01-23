@@ -1,0 +1,51 @@
+<div class="modal-wrapper">
+  <div *ngIf="cfg.title || cfg.dismissable" class="modal-header">
+    <h4 *ngIf="cfg.title" class="modal-title" [innerHTML]="cfg.title"></h4>
+    <button
+      *ngIf="cfg.dismissable"
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="activeModal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p *ngIf="typeOf(cfg.content) === 'string'">{{ cfg.content }}</p>
+    <ng-template appModalContent></ng-template>
+  </div>
+  <div
+    *ngIf="objectKeys(cfg.buttons).length as buttonsLength"
+    class="modal-footer"
+    [class.stretch]="buttonsLength > 1"
+  >
+    <button
+      *ngIf="cfg.buttons.neutral"
+      type="button"
+      id="qa_modal-neutral"
+      class="btn-neutral"
+      (click)="action(ModalEventType.NEUTRAL)"
+    >
+      {{ cfg.buttons.neutral }}
+    </button>
+    <button
+      *ngIf="cfg.buttons.positive"
+      type="button"
+      id="qa_modal-positive"
+      class="btn-positive"
+      (click)="action(ModalEventType.POSITIVE)"
+    >
+      {{ cfg.buttons.positive }}
+    </button>
+    <button
+      *ngIf="cfg.buttons.negative"
+      type="button"
+      id="qa_modal-negative"
+      class="btn-neutral"
+      (click)="action(ModalEventType.NEGATIVE)"
+    >
+      {{ cfg.buttons.negative }}
+    </button>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+// colors
+$white: #fff;
+$black: #000;
+$gray: #cbcbcb;
+$light-gray: #f5f5f6;
+$shadow-gray: #00000029;
+$medium-gray: #0000001a;
+$dark-gray: #707070;
+$silver: #aaaaaa;
+$light-blue: #1d84b580;
+$pale-blue: #1d84b5;
+$ocean-blue: #0c539c66;
+$medium-blue: #0c539c;
+$dark-blue: #062a4e;
+$sky-blue: #84a8cd;
+$yellow: #ffe145;
+$light-orange: #faa596;
+$red: #c22800;
+$green: #0c9c75;
+$brown: #532a0b;
+// fonts
+$font-regular: 'Calibri Regular';
+$font-bold: 'Calibri Bold';
+$font-semibold: 'Calibri SemiBold';
+$font-light: 'Calibri Thin';
+$font-italic: 'Calibri Italic';
+
+// font sizes
+$title-xs: 1em; // 16px
+$title-small: 1.15em; // 18px
+$title-regular: 1.3em; // 21px
+$title-large: 1.75em; // 28px
+$title-xl: 3.25em; // 52px
+
+$paragraph-xxs: 0.65em; // 10px
+$paragraph-xs: 0.75em; // 12px
+$paragraph-small: 0.9em; // 14px
+$paragraph-regular: 1em; // 16px
+$paragraph-large: 1.15em; // 18px
+$paragraph-xl: 1.3em; // 21px
+
+// border radius
+$radius-xs: 2px;
+$radius-small: 3px;
+$radius-regular: 5px;
+$radius-large: 7px;
+$radius-xl: 10px;
+$radius-xxl: 12px;
+$radius-xxxl: 20px;
+
+// helpers
+$dark-blue-tint: rgba($dark-blue, 0.5);
+$card-shadow-sm: 0 0 6px $shadow-gray;
+$card-shadow-regular: 0 0 15px $shadow-gray;
+
+$gradient: linear-gradient(to right, rgba($medium-blue, 0.85), rgba($dark-blue, 0.85));

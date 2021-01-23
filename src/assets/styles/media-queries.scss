@@ -1,0 +1,31 @@
+
+// Bootstrap resolution breakpoints //
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+);
+
+@mixin respond-above($breakpoint) {
+  @if map-has-key($map: $breakpoints, $key: $breakpoint) {
+    @media screen and (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "No value could be retrieve from `#{$breakpoint}`." +
+     "Available breakpoints are: #{map-keys($breakpoints)} ";
+  }
+}
+
+@mixin respond-below($breakpoint) {
+  @if map-has-key($map: $breakpoints, $key: $breakpoint) {
+    @media screen and (max-width: map-get($map: $breakpoints, $key: $breakpoint) - 1) {
+      @content;
+    }
+  } @else {
+    @warn "No value could be retrieve from `#{$breakpoint}`." +
+     "Available breakpoints are: #{map-keys($breakpoints)} ";
+  }
+}

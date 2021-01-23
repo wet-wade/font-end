@@ -1,0 +1,100 @@
+@import 'variables.scss';
+@import 'media-queries.scss';
+
+::ng-deep .modal {
+  height: 100vh;
+
+  .modal-dialog-centered {
+    min-height: calc(100vh - 1rem);
+    &::before {
+      height: calc(100vh - 1rem);
+    }
+  }
+}
+
+.modal-wrapper {
+  max-height: calc(100vh - 10em);
+  display: flex;
+  flex-direction: column;
+
+  @include respond-below(sm) {
+    max-height: calc(100vh - 20px - 2em);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  @include respond-below(sm) {
+    padding: 0 1em 1em;
+    min-height: 3em;
+  }
+
+  .modal-title {
+    font-size: 1.1em;
+    font-family: $font-regular;
+    color: $dark-blue;
+  }
+
+  .close {
+    font-size: 1.2em;
+  }
+}
+
+.modal-open .modal {
+  overflow: hidden;
+}
+
+.modal-body {
+  padding: 1em;
+  overflow-y: auto;
+  font-family: $font-regular;
+  color: $dark-blue;
+
+  @include respond-below(sm) {
+    padding: 0.3em;
+  }
+}
+
+.modal-footer {
+  font-family: $font-semibold;
+  button {
+    height: auto;
+  }
+
+  &.stretch {
+    button {
+      flex: 1;
+    }
+  }
+
+  @include respond-below(sm) {
+    padding: 0.3em 0.3em 0;
+    min-height: 3em;
+  }
+}
+.btn-positive,
+.btn-neutral {
+  font-family: $font-semibold;
+  font-size: $paragraph-small;
+  border-radius: 4px;
+  border: 1px solid $pale-blue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.3em 0.8em;
+}
+.btn-positive {
+  background: $pale-blue;
+  color: $white;
+}
+.btn-neutral {
+  color: $pale-blue;
+  background: $white;
+  &:focus {
+    background: $pale-blue;
+    color: $white;
+  }
+}

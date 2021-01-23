@@ -1,1 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/styles//variables.scss";
+.modal {
+  background: $dark-blue-tint;
+}
+.modal-backdrop {
+  background-color: transparent;
+}
+.modal-body {
+  p {
+    margin: 0 !important;
+  }
+}
+.modal-dialog {
+  margin: 0 auto;
+}
