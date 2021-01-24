@@ -1,8 +1,14 @@
-<p>dashboard works!</p>
-<div class="device-container" *ngFor="let device of devices">
-  <app-device
-    [name]="device.name"
-    [type]="device.type"
-    [data]="device.data"
-  ></app-device>
+<div class="dashboard-container container">
+  <div class="devices-container row">
+    <div class="device-container col-12 col-md-6 col-lg-4" *ngFor="let device of devices">
+      <app-device
+        [id]="device.id"
+        [name]="device.name"
+        [type]="device.type"
+        [available]="device.available"
+        [status]="device.status"
+        [data]="device.data"
+      ></app-device>
+    </div>
+  </div>
 </div>

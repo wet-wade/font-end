@@ -1,1 +1,15 @@
-<p>navbar works!</p>
+<section>
+  <mat-toolbar id="navbar">
+    <div class="logo-container">
+      <a [routerLink]="['/']">WET</a>
+    </div>
+
+    <div class="menu-container">
+      <ul class="nav">
+        <li *ngIf="hasDevices"><a [routerLink]="['devices']">Devices</a></li>
+        <li><a *ngIf="!authenticated" [routerLink]="['login']">Login</a></li>
+        <li><a *ngIf="authenticated" (click)="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </mat-toolbar>
+</section>

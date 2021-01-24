@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { DevicesRoutingModule } from './devices-routing.module';
-import { DeviceComponent } from './device/device.component';
+import { DeviceComponent } from './device-card/device-card.component';
 
 @NgModule({
   declarations: [DashboardComponent, DeviceComponent],

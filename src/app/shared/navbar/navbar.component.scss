@@ -1,0 +1,32 @@
+@import "variables.scss";
+
+section {
+  position: fixed;
+  width: 100%;
+  top: 0;
+
+  #navbar {
+    justify-content: space-between;
+
+    a {
+      color: $white;
+    }
+
+    .logo-container {
+    }
+
+    .menu-container {
+      ul {
+        li {
+          margin: 0 5px;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  body {
+    padding-top: 64px;
+  }
+}

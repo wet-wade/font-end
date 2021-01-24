@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { MaterialModule } from './material.module';
 import { ModalComponent } from './modal';
 import { ModalContentDirective } from './modal/modal-content/modal-content.directive';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -16,12 +17,14 @@ import { NavbarComponent } from './navbar/navbar.component';
     RouterModule,
     ReactiveFormsModule,
     NgbModule,
+    MaterialModule,
   ],
   exports: [
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
+    MaterialModule,
     NavbarComponent,
   ],
   providers: [],
