@@ -5,9 +5,10 @@ import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ModalComponent } from './modal';
 import { ModalContentDirective } from './modal/modal-content/modal-content.directive';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
-  declarations: [ModalContentDirective, ModalComponent],
+  declarations: [ModalContentDirective, ModalComponent, NavbarComponent],
   entryComponents: [ModalComponent],
   imports: [
     CommonModule,
@@ -16,7 +17,13 @@ import { ModalContentDirective } from './modal/modal-content/modal-content.direc
     ReactiveFormsModule,
     NgbModule,
   ],
-  exports: [CommonModule, RouterModule, ReactiveFormsModule, FormsModule],
+  exports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NavbarComponent,
+  ],
   providers: [],
 })
 export class SharedModule {}
