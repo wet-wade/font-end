@@ -1,1 +1,53 @@
-<p>groups-dashboard works!</p>
+<div class="group-dashboard-container container">
+  <div class="groups-container row">
+    <div
+      class="group-container col-12 col-md-6 col-lg-4"
+      *ngFor="let group of groups"
+    >
+      <ng-container
+        *ngTemplateOutlet="groupCard; context: { group: group }"
+      ></ng-container>
+    </div>
+
+    <div class="group-container col-12- col-md-6 col-lg-4">
+      <div class="group-card-container">
+        <mat-card class="group-card" id="add-button-card">
+          <div class="buttons-container">
+            <div class="button-container">
+              <button (click)="createGroup()">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #groupCard let-group="group">
+  <div class="group-card-container">
+    <mat-card class="group-card">
+      <div class="card-info">
+        <mat-card-title>{{ group.name }}</mat-card-title>
+      </div>
+      <mat-card-actions>
+        <div class="buttons-container">
+          <div
+            class="button-container"
+            *ngIf="authService.user.value.id === group.creatorId"
+          >
+            <button>
+              <i class="fas fa-cog"></i>
+            </button>
+          </div>
+          <div class="button-container">
+            <button (click)="selectGroup(group)">
+              <i class="fas fa-power-off"></i>
+            </button>
+          </div>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-template>
