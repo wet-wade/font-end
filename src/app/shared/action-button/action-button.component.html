@@ -7,7 +7,7 @@
   [class.radius-md]="borderRadius === 'md'"
   [class.radius-lg]="borderRadius === 'lg'"
 >
-  <button (click)="action.emit()">
+  <button (click)="action.emit()" [disabled]="disabled">
     <span class="title-container">{{ title }}</span>
   </button>
 </div>

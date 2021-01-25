@@ -39,6 +39,7 @@
     <mat-card-actions>
       <div class="buttons-container">
         <app-action-button
+          [disabled]="formGroup.invalid"
           [title]="'Register'"
           (action)="register()"
           [borderRadius]="'sm'"

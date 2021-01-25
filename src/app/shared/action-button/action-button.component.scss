@@ -1,5 +1,5 @@
-@import 'variables.scss';
-@import 'media-queries.scss';
+@import "variables.scss";
+@import "media-queries.scss";
 
 .action-button-container {
   $breakpoint: lg;
@@ -21,6 +21,10 @@
     @include respond-above($breakpoint) {
       // restore to 100% of it's size on desktop
       --font-size-scale: 1;
+    }
+
+    &[disabled] {
+      opacity: 0.7;
     }
   }
 

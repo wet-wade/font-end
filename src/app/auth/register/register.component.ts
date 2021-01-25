@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
   async register() {
     const username = this.usernameControl.value;
     const password = this.passwordControl.value;
-    await this.authService.login(username, password);
+    const name = this.nameControl.value;
+    const phone = this.phoneControl.value;
+    await this.authService.register(name, username, phone, password);
     this.router.navigateByUrl('/');
   }
 

@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-
 export interface ActionButtonAppearance {
   size: 'sm' | 'md' | 'lg';
   scheme: 'grayscale' | 'blue' | 'pink';
@@ -16,13 +15,10 @@ export class ActionButtonComponent implements OnInit {
   @Input() size: 'sm' | 'md' | 'lg' = 'md';
   @Input() scheme: 'grayscale' | 'blue' | 'pink' = 'blue';
   @Input() borderRadius: 'sm' | 'md' | 'lg' = 'lg';
+  @Input() disabled: boolean = false;
   @Output() action = new EventEmitter();
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  
-
-
 }

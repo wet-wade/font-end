@@ -28,6 +28,7 @@
     <mat-card-actions>
       <div class="buttons-container">
         <app-action-button
+          [disabled]="formGroup.invalid"
           [title]="'Login'"
           (action)="login()"
           [borderRadius]="'sm'"

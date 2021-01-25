@@ -1,9 +1,13 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CookieService } from 'ngx-cookie-service';
 import { ActionButtonComponent } from './action-button/action-button.component';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { MaterialModule } from './material.module';
 import { ModalComponent } from './modal';
 import { ModalContentDirective } from './modal/modal-content/modal-content.directive';
@@ -19,6 +23,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   entryComponents: [ModalComponent],
   imports: [
     CommonModule,
+    HttpClientModule,
     FormsModule,
     RouterModule,
     ReactiveFormsModule,
@@ -27,6 +32,7 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   exports: [
     CommonModule,
+    HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
@@ -34,6 +40,20 @@ import { NavbarComponent } from './navbar/navbar.component';
     NavbarComponent,
     ActionButtonComponent,
   ],
-  providers: [],
+  providers: [
+    CookieService,
+    {
+      // use fake backend in place of Http service for backend-less development
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true,
+    },
+    {
+      // use fake backend in place of Http service for backend-less development
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class SharedModule {}
