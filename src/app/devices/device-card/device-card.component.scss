@@ -27,6 +27,10 @@
         height: 15px;
         border-radius: 100%;
         background: $green;
+
+        &.unavailable {
+          background: $red;
+        }
       }
     }
   }

@@ -36,7 +36,7 @@ export class DashboardComponent implements OnInit {
       name: 'Priza dormitor',
       type: DeviceType.OUTLET,
       status: DeviceStatus.ON,
-      available: true,
+      available: false,
     },
   ];
 

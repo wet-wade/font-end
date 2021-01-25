@@ -3,16 +3,26 @@
     <mat-card-content>
       <form class="login-form" [formGroup]="formGroup">
         <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input type="text" matInput [formControl]="nameControl" />
+          <mat-error *ngIf="usernameControl.hasError('required')">
+            Name is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
           <mat-label>Username</mat-label>
-          <input
-            autocomplete="false"
-            type="text"
-            matInput
-            [formControl]="usernameControl"
-            placeholder="Username"
-          />
+          <input type="text" matInput [formControl]="usernameControl" />
           <mat-error *ngIf="usernameControl.hasError('required')">
             Username is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Phone</mat-label>
+          <input type="text" matInput [formControl]="phoneControl" />
+          <mat-error *ngIf="phoneControl.hasError('required')">
+            Phone is <strong>required</strong>
           </mat-error>
         </mat-form-field>
 
@@ -25,14 +35,15 @@
         </mat-form-field>
       </form>
     </mat-card-content>
+
     <mat-card-actions>
       <div class="buttons-container">
         <app-action-button
-          [title]="'Login'"
-          (action)="login()"
+          [title]="'Register'"
+          (action)="register()"
           [borderRadius]="'sm'"
         ></app-action-button>
-        <a [routerLink]="['/auth', 'register']">Register</a>
+        <a [routerLink]="['/auth', 'login']">Login</a>
       </div>
     </mat-card-actions>
   </mat-card>

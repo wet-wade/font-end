@@ -6,9 +6,15 @@
 
     <div class="menu-container">
       <ul class="nav">
-        <li *ngIf="hasDevices"><a [routerLink]="['devices']">Devices</a></li>
-        <li><a *ngIf="!authenticated" [routerLink]="['login']">Login</a></li>
-        <li><a *ngIf="authenticated" (click)="logout()">Logout</a></li>
+        <li *ngIf="hasDevices"><a [routerLink]="['groups']">Groups</a></li>
+        <li>
+          <a *ngIf="!authService.isAuthenticated" [routerLink]="['auth']"
+            >Login</a
+          >
+        </li>
+        <li>
+          <a *ngIf="authService.isAuthenticated" (click)="logout()">Logout</a>
+        </li>
       </ul>
     </div>
   </mat-toolbar>

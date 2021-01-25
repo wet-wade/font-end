@@ -1,0 +1,55 @@
+@import 'variables.scss';
+@import 'media-queries.scss';
+
+.action-button-container {
+  $breakpoint: lg;
+
+  button {
+    --font-size: 1em;
+    // on mobile screen reduce specified font-size to 70%
+    --font-size-scale: 0.8;
+    border-radius: $radius-regular;
+    font-family: $font-regular;
+    color: $dark-gray;
+    border: 3px solid $medium-gray;
+    padding: 0.5em 1.5em;
+    background-color: transparent;
+    line-height: 1;
+    outline: none !important;
+    font-size: calc(var(--font-size) * (var(--font-size-scale)));
+
+    @include respond-above($breakpoint) {
+      // restore to 100% of it's size on desktop
+      --font-size-scale: 1;
+    }
+  }
+
+  &.size-md button {
+    padding: 0.9em 1.5em;
+  }
+
+  &.size-lg button {
+    padding: 1.2em 2em;
+    --font-size: #{$paragraph-xl};
+  }
+
+  &.bg-blue button {
+    background-color: $pale-blue;
+    color: $white;
+    border: none;
+  }
+
+  &.bg-pink button {
+    background-color: $light-orange;
+    color: $white;
+    border: none;
+  }
+
+  &.radius-md button {
+    border-radius: $radius-xl;
+  }
+
+  &.radius-lg button {
+    border-radius: 5em;
+  }
+}

@@ -1,0 +1,13 @@
+<div
+  class="action-button-container"
+  [class.size-md]="size === 'md'"
+  [class.size-lg]="size === 'lg'"
+  [class.bg-blue]="scheme === 'blue'"
+  [class.bg-pink]="scheme === 'pink'"
+  [class.radius-md]="borderRadius === 'md'"
+  [class.radius-lg]="borderRadius === 'lg'"
+>
+  <button (click)="action.emit()">
+    <span class="title-container">{{ title }}</span>
+  </button>
+</div>

@@ -3,15 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: 'devices',
+    path: 'groups',
+    loadChildren: () =>
+      import('./groups/groups.module').then((m) => m.GroupsModule),
+  },
+  {
+    path: 'groups/:groupId/devices',
     loadChildren: () =>
       import('./devices/devices.module').then((m) => m.DevicesModule),
   },
   {
-    path: 'login',
+    path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
-  { path: '**', redirectTo: 'devices' },
+  { path: '**', redirectTo: 'groups' },
 ];
 
 @NgModule({
