@@ -27,6 +27,11 @@ export class GroupSandbox {
     return this.http.get(url).pipe(map((response: any) => response.group));
   }
 
+  getGroupSummary(id: string): Observable<GroupSummary> {
+    const url = `${environment.apiUrl}/groups/${id}/summary`;
+    return this.http.get(url).pipe(map((response: any) => response.group));
+  }
+
   createGroup(name: string): Observable<Group> {
     const url = `${environment.apiUrl}/groups`;
     return this.http

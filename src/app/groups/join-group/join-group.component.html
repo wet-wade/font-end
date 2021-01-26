@@ -1,0 +1,38 @@
+<div class="spinner-container">
+  <div class="spinner">
+    <i class="fas fa-spin fa-spinner"></i>
+  </div>
+</div>
+
+<ng-template #nameForm>
+  <form
+    *ngIf="!authService.isAuthenticated; else loggedIn"
+    class="group-form"
+    [formGroup]="formGroup"
+  >
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        autocomplete="false"
+        type="text"
+        matInput
+        formControlName="name"
+        placeholder="John Doe"
+      />
+      <mat-error *ngIf="formGroup.errors">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>
+
+<ng-template #loggedIn>
+  <div class="title-container">
+    <h3>
+      Logged in as
+      <strong>
+        {{ authService.user.value?.name }}
+      </strong>
+    </h3>
+  </div>
+</ng-template>

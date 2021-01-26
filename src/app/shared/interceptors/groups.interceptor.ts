@@ -130,6 +130,11 @@ export class GroupsInterceptor implements HttpInterceptor {
           const getGroupId = path[path.length - 1];
           return getGroup(getGroupId);
 
+        // GET /groups/:groupId/summary
+        case /.*\/groups\/[^/]\/summary$/g.test(url) && method === 'GET':
+          const getGroupSummaryId = path[path.length - 2];
+          return getGroupSummary(getGroupSummaryId);
+
         // POST /groups
         case url.endsWith('/groups') && method === 'POST':
           return createGroup();
@@ -226,6 +231,19 @@ export class GroupsInterceptor implements HttpInterceptor {
         },
       });
     }
+    function getGroupSummary(id: string) {
+      const group = MOCK_GROUPS.find((other) => other.id === id);
+      if (!group) {
+        return notFound();
+      }
+
+      return ok({
+        group: {
+          id: group.id,
+          name: group.name,
+        },
+      });
+    }
 
     function discover(id: string) {
       const user = getAuth();
@@ -284,6 +302,9 @@ export class GroupsInterceptor implements HttpInterceptor {
     }
 
     function joinGroup(groupId: string) {
+      console.log('CALLING JOIN GROUP');
+      console.log(groupId);
+      console.log(MOCK_GROUPS);
       const user = getAuth();
       if (!user && !body.name) {
         return throwError({

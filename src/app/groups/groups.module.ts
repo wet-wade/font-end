@@ -4,9 +4,10 @@ import { GroupsDashboardComponent } from './groups-dashboard/groups-dashboard.co
 import { GroupsRoutingModule } from './groups-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { GroupSettingsComponent } from './group-settings/group-settings.component';
+import { JoinGroupComponent } from './join-group/join-group.component';
 
 @NgModule({
-  declarations: [GroupsDashboardComponent, GroupSettingsComponent],
+  declarations: [GroupsDashboardComponent, GroupSettingsComponent, JoinGroupComponent],
   imports: [CommonModule, GroupsRoutingModule, SharedModule],
 })
 export class GroupsModule {}
