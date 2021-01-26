@@ -1,4 +1,4 @@
-import { Device } from './device';
+import { Device, SavedDevice } from './device';
 import { DevicePermission } from './device-permission';
 import { GroupMember } from './user';
 
@@ -9,6 +9,6 @@ export interface GroupSummary {
 }
 export interface Group extends GroupSummary {
   members: GroupMember[];
-  devices: Device[];
+  devices: SavedDevice[];
   permissions: DevicePermission[];
 }

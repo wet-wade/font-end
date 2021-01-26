@@ -4,9 +4,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { SharedModule } from '../shared/shared.module';
 import { DevicesRoutingModule } from './devices-routing.module';
 import { DeviceComponent } from './device-card/device-card.component';
+import { DiscoverComponent } from './discover/discover.component';
 
 @NgModule({
-  declarations: [DashboardComponent, DeviceComponent],
+  declarations: [DashboardComponent, DeviceComponent, DiscoverComponent],
   imports: [SharedModule, DevicesRoutingModule],
   providers: [],
 })

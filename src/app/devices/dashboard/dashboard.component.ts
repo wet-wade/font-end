@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth.service';
 import { GroupSandbox } from 'src/app/shared/group.sandbox';
-import { Device, DeviceStatus, DeviceType } from 'src/app/shared/models/device';
+import { Device, SavedDevice } from 'src/app/shared/models/device';
+import { Group } from 'src/app/shared/models/group';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,17 +11,21 @@ import { Device, DeviceStatus, DeviceType } from 'src/app/shared/models/device';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  devices: Device[] = [];
-
+  devices: SavedDevice[] = [];
+  group: Group;
+  isOwner = false;
   constructor(
     private groupSandbox: GroupSandbox,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
     const groupId = this.activatedRoute.snapshot.params.groupId;
-    this.groupSandbox
-      .getGroup(groupId)
-      .subscribe((group) => (this.devices = group.devices));
+    this.groupSandbox.getGroup(groupId).subscribe((group) => {
+      this.group = group;
+      this.devices = group.devices;
+      this.isOwner = this.authService.user.value.id === group.creatorId;
+    });
   }
 }

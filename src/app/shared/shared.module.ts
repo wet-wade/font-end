@@ -13,6 +13,7 @@ import { MaterialModule } from './material.module';
 import { ModalComponent } from './modal';
 import { ModalContentDirective } from './modal/modal-content/modal-content.directive';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PageComponent } from './page/page.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ModalComponent,
     NavbarComponent,
     ActionButtonComponent,
+    PageComponent,
   ],
   entryComponents: [ModalComponent],
   imports: [
@@ -40,6 +42,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     MaterialModule,
     NavbarComponent,
     ActionButtonComponent,
+    PageComponent,
   ],
   providers: [
     CookieService,

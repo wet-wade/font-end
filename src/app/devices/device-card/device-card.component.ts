@@ -14,6 +14,7 @@ const ICONS = {
 })
 export class DeviceComponent implements OnInit {
   @Input() id: string;
+  @Input() nickname: string;
   @Input() name: string;
   @Input() available: string;
   @Input() type: DeviceType;

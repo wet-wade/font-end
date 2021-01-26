@@ -39,10 +39,14 @@ export class GroupSandbox {
     return this.http.get(url).pipe(map((response: any) => response.devices));
   }
 
-  addDevice(groupId: string, deviceId: string): Observable<Device> {
+  addDevice(
+    groupId: string,
+    deviceId: string,
+    nickname: string
+  ): Observable<Device> {
     const url = `${environment.apiUrl}/groups/${groupId}/devices`;
     return this.http
-      .post(url, { deviceId })
+      .post(url, { deviceId, nickname })
       .pipe(map((response: any) => response.device));
   }
 

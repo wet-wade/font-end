@@ -1,0 +1,33 @@
+<app-page [title]="'Discover new devices'">
+  <div class="devices-container container">
+    <div class="device-container row" *ngFor="let device of availableDevices">
+      <mat-card class="col">
+        <mat-card-header>
+          <mat-card-title>{{ device.name }}</mat-card-title>
+          <mat-card-subtitle>{{ device.type }}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="add-button-container">
+          <button (click)="initAddDeviceModal(device)">
+            <i class="fas fa-plus"></i>
+          </button>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</app-page>
+
+<ng-template #setNickname>
+  <form [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label>Nickname for this device</mat-label>
+      <input
+        autocomplete="false"
+        type="text"
+        matInput
+        formControlName="nickname"
+        placeholder="My shiny lightbulb"
+      />
+      <mat-error> This field is <strong>required</strong> </mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>

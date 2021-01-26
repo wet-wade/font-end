@@ -27,6 +27,9 @@ export class AuthService {
   }
 
   async authToken() {
+    if (this.isAuthenticated) {
+      return;
+    }
     const token = this.cookieService.get('wet-token');
     if (!token) {
       return;

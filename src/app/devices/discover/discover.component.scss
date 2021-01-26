@@ -1,0 +1,34 @@
+@import "variables.scss";
+
+.devices-container {
+  .device-container {
+    margin: 0.5em 0;
+
+    mat-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    ::ng-deep .mat-card-header-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      mat-card-title,
+      mat-card-subtitle {
+        margin: 0;
+      }
+    }
+
+    .add-button-container {
+      button {
+        border: none;
+        background: transparent;
+        color: $white;
+        height: 2em;
+        width: 2em;
+        font-size: 2em;
+      }
+    }
+  }
+}

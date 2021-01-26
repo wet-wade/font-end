@@ -8,23 +8,30 @@ import {
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
-import { Device, DeviceStatus, DeviceType } from '../models/device';
+import {
+  Device,
+  DeviceStatus,
+  DeviceType,
+  SavedDevice,
+} from '../models/device';
 import { DevicePermission } from '../models/device-permission';
 import { Group, GroupSummary } from '../models/group';
 import { GroupMember } from '../models/user';
 import { MOCK_USERS } from './auth.interceptor';
 
-const MOCK_DEVICES: Device[] = [
+const MOCK_DEVICES: SavedDevice[] = [
   {
     id: '1',
-    name: 'Bec in sufragerie',
+    name: 'SmartBulb',
+    nickname: 'Bec in sufragerie',
     type: DeviceType.LIGHTBULD,
     status: DeviceStatus.ON,
     available: true,
   },
   {
     id: '2',
-    name: 'AC in dormitor',
+    nickname: 'AC in dormitor',
+    name: 'HVAC Device',
     type: DeviceType.HVAC,
     status: DeviceStatus.ON,
     available: true,
@@ -32,7 +39,8 @@ const MOCK_DEVICES: Device[] = [
   },
   {
     id: '3',
-    name: 'Usa la balcon',
+    nickname: 'Usa la balcon',
+    name: 'Smart Door Lock',
     type: DeviceType.DOOR,
     status: DeviceStatus.OFF,
     available: true,
@@ -40,7 +48,8 @@ const MOCK_DEVICES: Device[] = [
   },
   {
     id: '4',
-    name: 'Priza dormitor',
+    nickname: 'Priza dormitor',
+    name: 'Smart Outlet',
     type: DeviceType.OUTLET,
     status: DeviceStatus.ON,
     available: false,
@@ -50,18 +59,13 @@ const MOCK_DEVICES: Device[] = [
 const MOCK_DISCOVER: Device[] = [
   {
     id: '5',
-    name: 'Usa la Garaj',
+    name: 'Xiaomi Smart Door Lock',
     type: DeviceType.DOOR,
-    status: DeviceStatus.ON,
-    available: true,
-    data: { locked: true },
   },
   {
     id: '6',
-    name: 'Priza sufragerie',
+    name: 'Bosch Smart Outlet 3000',
     type: DeviceType.OUTLET,
-    status: DeviceStatus.ON,
-    available: true,
   },
 ];
 
@@ -112,7 +116,7 @@ export class GroupsInterceptor implements HttpInterceptor {
         // call materialize and dematerialize to ensure delay
         //  (https://github.com/Reactive-Extensions/RxJS/issues/648)
         .pipe(materialize())
-        .pipe(delay(500))
+        .pipe(delay(100))
         .pipe(dematerialize())
     );
 
@@ -183,13 +187,15 @@ export class GroupsInterceptor implements HttpInterceptor {
       }
 
       const newGroup: Group = {
-        id: String(MOCK_GROUPS.length),
+        id: String(MOCK_GROUPS.length + 1),
         creatorId: user.id,
         name: body.name,
         members: [{ id: user.id, name: user.name }],
         devices: [],
         permissions: [],
       };
+
+      MOCK_GROUPS.push(newGroup);
 
       return ok({ group: newGroup });
     }
@@ -237,7 +243,9 @@ export class GroupsInterceptor implements HttpInterceptor {
       }
 
       return ok({
-        devices: MOCK_DISCOVER,
+        devices: MOCK_DISCOVER.filter(
+          (device) => !group.devices.some((other) => other.id === device.id)
+        ),
       });
     }
 
@@ -257,9 +265,22 @@ export class GroupsInterceptor implements HttpInterceptor {
       }
 
       const device = MOCK_DISCOVER.find((other) => other.id === body.deviceId);
-      group.devices.push(device);
+      const data = generateDeviceData(device);
+      const savedDevice: SavedDevice = {
+        ...device,
+        ...data,
+        nickname: body.nickname,
+      };
+      group.devices.push(savedDevice);
+      group.permissions.push({
+        memberId: group.creatorId,
+        deviceId: device.id,
+        manage: true,
+        write: true,
+        read: true,
+      });
 
-      return ok({ device });
+      return ok({ device: savedDevice });
     }
 
     function joinGroup(groupId: string) {
@@ -276,7 +297,7 @@ export class GroupsInterceptor implements HttpInterceptor {
         newMember = { id: user.id, name: user.name };
       } else if (body.name) {
         newMember = {
-          id: String(MOCK_USERS.length),
+          id: String(MOCK_USERS.length + 1),
           name: body.name,
         };
 
@@ -348,6 +369,18 @@ export class GroupsInterceptor implements HttpInterceptor {
     }
 
     // helper functions
+
+    function generateDeviceData(device: Device) {
+      const status = Math.random() >= 0.5 ? DeviceStatus.ON : DeviceStatus.OFF;
+      const available = Math.random() >= 0.2;
+      let data = {};
+      if (device.type === DeviceType.DOOR) {
+        data = { lock: Math.random() >= 0.5 };
+      } else if (device.type === DeviceType.HVAC) {
+        data = { temperature: Math.random() * 10 + 15 };
+      }
+      return { status, available, data };
+    }
 
     function ok(resBody?: any) {
       return of(new HttpResponse({ status: 200, body: resBody }));

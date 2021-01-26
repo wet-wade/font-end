@@ -5,3 +5,16 @@
     padding-top: 1em;
   }
 }
+
+#discover-button {
+  max-width: 108px;
+  button {
+    border: none;
+    outline: none;
+    background: transparent;
+    color: $white;
+    font-size: 3em;
+    height: 75px;
+    width: 75px;
+  }
+}

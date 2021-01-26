@@ -1,0 +1,11 @@
+@import "variables.scss";
+
+.page-container {
+  padding-top: 1em;
+  .page-title {
+    h3 {
+      color: $white;
+      font-size: $title-large;
+    }
+  }
+}

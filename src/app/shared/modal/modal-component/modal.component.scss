@@ -1,5 +1,5 @@
-@import 'variables.scss';
-@import 'media-queries.scss';
+@import "variables.scss";
+@import "media-queries.scss";
 
 ::ng-deep .modal {
   height: 100vh;
@@ -35,11 +35,13 @@
   .modal-title {
     font-size: 1.1em;
     font-family: $font-regular;
-    color: $dark-blue;
+    color: $white;
   }
 
   .close {
-    font-size: 1.2em;
+    outline: none;
+    text-shadow: none;
+    color: $white;
   }
 }
 
@@ -51,7 +53,7 @@
   padding: 1em;
   overflow-y: auto;
   font-family: $font-regular;
-  color: $dark-blue;
+  color: $white;
 
   @include respond-below(sm) {
     padding: 0.3em;

@@ -1,29 +1,31 @@
-<div class="group-dashboard-container container">
-  <div class="groups-container row">
-    <div
-      class="group-container col-12 col-md-6 col-lg-4"
-      *ngFor="let group of groups"
-    >
-      <ng-container
-        *ngTemplateOutlet="groupCard; context: { group: group }"
-      ></ng-container>
-    </div>
+<app-page [title]="'Groups'">
+  <div class="group-dashboard-container container">
+    <div class="groups-container row">
+      <div
+        class="group-container col-12 col-md-6 col-lg-4"
+        *ngFor="let group of groups"
+      >
+        <ng-container
+          *ngTemplateOutlet="groupCard; context: { group: group }"
+        ></ng-container>
+      </div>
 
-    <div class="group-container col-12- col-md-6 col-lg-4" *ngIf="!isVisitor">
-      <div class="group-card-container">
-        <mat-card class="group-card" id="add-button-card">
-          <div class="buttons-container">
-            <div class="button-container">
-              <button (click)="createGroup()">
-                <i class="fas fa-plus"></i>
-              </button>
+      <div class="group-container col-12- col-md-6 col-lg-4" *ngIf="!isVisitor">
+        <div class="group-card-container">
+          <mat-card class="group-card" id="add-button-card">
+            <div class="buttons-container">
+              <div class="button-container">
+                <button (click)="createGroup()">
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
             </div>
-          </div>
-        </mat-card>
+          </mat-card>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</app-page>
 
 <ng-template #groupCard let-group="group">
   <div class="group-card-container">
@@ -35,7 +37,7 @@
         <div class="buttons-container">
           <div
             class="button-container"
-            *ngIf="authService.user.value.id === group.creatorId"
+            *ngIf="authService.user.value?.id === group.creatorId"
           >
             <button>
               <i class="fas fa-cog"></i>
@@ -50,4 +52,22 @@
       </mat-card-actions>
     </mat-card>
   </div>
+</ng-template>
+
+<ng-template #addGroup>
+  <form class="group-form" [formGroup]="formGroup">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        autocomplete="false"
+        type="text"
+        matInput
+        formControlName="name"
+        placeholder="Home on 3rd streen"
+      />
+      <mat-error *ngIf="formGroup.errors">
+        Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+  </form>
 </ng-template>

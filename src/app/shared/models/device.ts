@@ -21,23 +21,27 @@ export enum DeviceStatus {
 export interface Device {
   id: string;
   name: string;
-  type: string;
+  type: DeviceType;
+}
+
+export interface SavedDevice extends Device {
+  nickname: string;
   available: boolean;
   status: DeviceStatus;
   data?: any;
 }
 
-export type LightbulbDevice = Device;
+export type LightbulbDevice = SavedDevice;
 
-export interface HvacDevice extends Device {
+export interface HvacDevice extends SavedDevice {
   data: {
     temperature: number;
   };
 }
 
-export type OutletDevice = Device;
+export type OutletDevice = SavedDevice;
 
-export interface DoorDevice {
+export interface DoorDevice extends SavedDevice {
   data: {
     locked: boolean;
   };

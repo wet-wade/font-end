@@ -8,7 +8,7 @@ const routes: Routes = [
       import('./groups/groups.module').then((m) => m.GroupsModule),
   },
   {
-    path: 'groups/:groupId/devices',
+    path: 'groups/:groupId',
     loadChildren: () =>
       import('./devices/devices.module').then((m) => m.DevicesModule),
   },

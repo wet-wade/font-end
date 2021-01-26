@@ -1,14 +1,34 @@
-<div class="dashboard-container container">
-  <div class="devices-container row">
-    <div class="device-container col-12 col-md-6 col-lg-4" *ngFor="let device of devices">
-      <app-device
-        [id]="device.id"
-        [name]="device.name"
-        [type]="device.type"
-        [available]="device.available"
-        [status]="device.status"
-        [data]="device.data"
-      ></app-device>
+<app-page [title]="'Devices'">
+  <div class="dashboard-container container">
+    <div class="devices-container row">
+      <div
+        class="device-container col-12 col-md-6 col-lg-4"
+        *ngFor="let device of devices"
+      >
+        <app-device
+          [id]="device.id"
+          [nickname]="device.nickname"
+          [name]="device.name"
+          [type]="device.type"
+          [available]="device.available"
+          [status]="device.status"
+          [data]="device.data"
+        ></app-device>
+      </div>
+
+      <div class="device-container col-12 col-md-6 col-lg-4" *ngIf="isOwner">
+        <div class="device-card-container">
+          <mat-card class="device-card" id="discover-button">
+            <div class="buttons-container">
+              <div class="button-container">
+                <button [routerLink]="['/groups', group.id, 'discover']">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+</app-page>

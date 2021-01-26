@@ -1,10 +1,24 @@
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/styles/variables.scss";
 .modal {
-  background: $dark-blue-tint;
+  background: $dark-tint;
+}
+.modal-content {
+  background-color: $dark-gray;
 }
 .modal-backdrop {
   background-color: transparent;
+}
+
+.modal-header {
+  border-bottom: 1px solid darken($dark-gray, 10%);
+  h4 {
+    margin: 0;
+  }
+}
+
+.modal-footer {
+  border-top: 1px solid darken($dark-gray, 10%);
 }
 .modal-body {
   p {
