@@ -21,7 +21,9 @@
           <mat-card class="device-card" id="discover-button">
             <div class="buttons-container">
               <div class="button-container">
-                <button [routerLink]="['/groups', group.id, 'discover']">
+                <button
+                  [routerLink]="['/groups', group.id, 'devices', 'discover']"
+                >
                   <i class="fas fa-search"></i>
                 </button>
               </div>

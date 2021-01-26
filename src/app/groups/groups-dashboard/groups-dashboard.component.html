@@ -39,12 +39,12 @@
             class="button-container"
             *ngIf="authService.user.value?.id === group.creatorId"
           >
-            <button>
+            <button [routerLink]="['/groups', group?.id, 'settings']">
               <i class="fas fa-cog"></i>
             </button>
           </div>
           <div class="button-container">
-            <button (click)="selectGroup(group)">
+            <button [routerLink]="['/groups', group?.id, 'devices']">
               <i class="fas fa-power-off"></i>
             </button>
           </div>

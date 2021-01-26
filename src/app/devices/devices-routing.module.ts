@@ -5,7 +5,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { DiscoverComponent } from './discover/discover.component';
 const routes: Routes = [
   {
-    path: 'devices',
+    path: '',
     component: DashboardComponent,
     canActivate: [AuthCanActivateGuard],
   },

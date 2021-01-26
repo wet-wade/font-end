@@ -1,0 +1,38 @@
+<app-page [title]="'Group Settings'">
+  <div class="group-settings-container container">
+    <div class="row">
+      <div class="col group-settings">
+        <button (click)="share()">
+          <i class="fas fa-share"></i>
+        </button>
+        <button (click)="remove()">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+    <div class="row subtitle">
+      <div class="col">
+        <h3>Members</h3>
+      </div>
+    </div>
+    <div class="row members-container">
+      <div class="col">
+        <div class="row" *ngFor="let member of group?.members">
+          <div class="col member-container">
+            <mat-card>
+              <div class="member-name">{{ member.name }}</div>
+              <div class="member-remove">
+                <button *ngIf="member.id !== authService.user.value?.id">
+                  <i class="fas fa-times"></i>
+                </button>
+                <button *ngIf="member.id === authService.user.value?.id">
+                  <i class="fas fa-user"></i>
+                </button>
+              </div>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page>

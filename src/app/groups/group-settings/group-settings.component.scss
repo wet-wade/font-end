@@ -1,0 +1,38 @@
+@import "variables.scss";
+
+.group-settings-container {
+  > .row {
+    margin-top: 2em;
+  }
+
+  h3 {
+    font-size: $title-large;
+    color: $white;
+  }
+
+  button {
+    border: none;
+    background: transparent;
+    color: $white;
+    font-size: 2em;
+  }
+  .group-settings {
+    display: flex;
+    justify-content: space-between;
+    button {
+      font-size: 3em;
+      margin: 0 1em;
+    }
+  }
+
+  mat-card {
+    margin: 0.5em 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .member-name {
+      font-size: $paragraph-large;
+    }
+  }
+}
