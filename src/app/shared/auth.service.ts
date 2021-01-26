@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { ModalFactory } from './modal';
 import { User } from './models/user';
 
@@ -16,7 +17,7 @@ export class AuthService {
   user: BehaviorSubject<User> = new BehaviorSubject(null);
 
   async login(username: string, password: string) {
-    const url = `/auth/login`;
+    const url = `${environment.apiUrl}/auth/login`;
     const body = {
       username,
       password,
@@ -36,7 +37,7 @@ export class AuthService {
     phone: string,
     password: string
   ) {
-    const url = '/auth/register';
+    const url = `${environment.apiUrl}/auth/register`;
     const body = { name, username, phone, password };
     const { user, token } = (await this.http.post(url, body).toPromise()) as {
       user: User;
