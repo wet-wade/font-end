@@ -66,6 +66,8 @@ export class AuthInterceptor implements HttpInterceptor {
           return authenticate();
         case url.endsWith('/auth/register') && method === 'POST':
           return register();
+        case url.endsWith('/auth/token') && method === 'POST':
+          return authToken();
         default:
           // pass through any requests not handled above
           const authReq = request.clone({
@@ -94,6 +96,12 @@ export class AuthInterceptor implements HttpInterceptor {
         },
         token: user.jwt,
       });
+    }
+
+    function authToken() {
+      const token = body.token;
+      const user = MOCK_USERS.find((x) => x.jwt === token);
+      return ok({ user });
     }
 
     function register() {

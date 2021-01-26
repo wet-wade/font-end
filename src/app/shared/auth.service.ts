@@ -3,16 +3,11 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ModalFactory } from './modal';
 import { User } from './models/user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  constructor(
-    private http: HttpClient,
-    private cookieService: CookieService,
-    private modalFactory: ModalFactory
-  ) {}
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
   user: BehaviorSubject<User> = new BehaviorSubject(null);
 
@@ -27,8 +22,24 @@ export class AuthService {
       user: User;
       token: string;
     };
-    this.cookieService.set('wet-token', token);
+    this.cookieService.set('wet-token', token, null, '/');
     this.user.next(user);
+  }
+
+  async authToken() {
+    const token = this.cookieService.get('wet-token');
+    if (!token) {
+      return;
+    }
+
+    const url = `${environment.apiUrl}/auth/token`;
+    const { user } = (await this.http.post(url, { token }).toPromise()) as {
+      user: User;
+    };
+
+    if (user) {
+      this.user.next(user as User);
+    }
   }
 
   async register(
@@ -43,7 +54,7 @@ export class AuthService {
       user: User;
       token: string;
     };
-    this.cookieService.set('wet-token', token);
+    this.cookieService.set('wet-token', token, null, '/');
     this.user.next(user);
   }
 
@@ -52,7 +63,7 @@ export class AuthService {
   }
 
   async logout() {
-    this.cookieService.delete('wet-token');
+    this.cookieService.delete('wet-token', '/');
     this.user.next(null);
   }
 }

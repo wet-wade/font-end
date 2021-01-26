@@ -117,7 +117,6 @@ export class GroupsInterceptor implements HttpInterceptor {
     );
 
     function handleRoute() {
-      console.log(url, path);
       switch (true) {
         case url.endsWith('/groups') && method === 'GET':
           return getGroups();
@@ -369,7 +368,6 @@ export class GroupsInterceptor implements HttpInterceptor {
     function getAuth() {
       const head = headers.get('Authorization');
       const incomingJWT = head && head.replace('Bearer ', '');
-      console.log('incoming jwt', incomingJWT);
       const user = MOCK_USERS.find(({ jwt }) => jwt === incomingJWT);
       return user;
     }

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://wet-wade.herokuapp.com/api/',
+  apiUrl: 'https://wet-wade.herokuapp.com/api',
 };

@@ -16,6 +16,7 @@ const MOCK_GROUPS: GroupSummary[] = [
 })
 export class GroupsDashboardComponent implements OnInit {
   groups: GroupSummary[] = [];
+  isVisitor = true;
   constructor(
     public authService: AuthService,
     private router: Router,
@@ -33,6 +34,8 @@ export class GroupsDashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const isAuthenticated = this.authService.isAuthenticated;
+    this.isVisitor = isAuthenticated && !this.authService.user.value.username;
     this.groupSandbox.getGroups().subscribe((groups) => (this.groups = groups));
   }
 }
