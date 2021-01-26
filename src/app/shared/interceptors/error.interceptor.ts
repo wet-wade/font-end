@@ -1,18 +1,16 @@
-import { Injectable } from '@angular/core';
 import {
-  HttpRequest,
-  HttpResponse,
-  HttpHandler,
   HttpEvent,
+  HttpHandler,
   HttpInterceptor,
-  HTTP_INTERCEPTORS,
+  HttpRequest,
 } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import {
   delay,
-  mergeMap,
-  materialize,
   dematerialize,
+  materialize,
+  mergeMap,
   tap,
 } from 'rxjs/operators';
 import { ModalFactory } from '../modal';
@@ -52,29 +50,6 @@ export class ErrorInterceptor implements HttpInterceptor {
 
     function handleRoute() {
       return next.handle(request);
-    }
-
-    // helper functions
-
-    function ok(resBody?: any) {
-      return of(new HttpResponse({ status: 200, body: resBody }));
-    }
-
-    function error(message: string) {
-      return throwError({ error: { message } });
-    }
-
-    function unauthorized() {
-      return throwError({ status: 401, error: { message: 'Unauthorised' } });
-    }
-
-    function isLoggedIn() {
-      return headers.get('Authorization') === 'Bearer fake-jwt-token';
-    }
-
-    function idFromUrl() {
-      const urlParts = url.split('/');
-      return parseInt(urlParts[urlParts.length - 1]);
     }
   }
 }

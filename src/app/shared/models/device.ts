@@ -5,6 +5,14 @@ export enum DeviceType {
   OUTLET = 'outlet',
 }
 
+export enum DeviceCommand {
+  ON = 'ON',
+  OFF = 'OFF',
+  SET_TEMPERATURE = 'SET_TEMPERATURE',
+  LOCK = 'LOCK',
+  UNLOCK = 'UNLOCK',
+}
+
 export enum DeviceStatus {
   ON = 'on',
   OFF = 'off',

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
+import { GroupSandbox } from 'src/app/shared/group.sandbox';
 import { Group, GroupSummary } from 'src/app/shared/models/group';
 
 const MOCK_GROUPS: GroupSummary[] = [
@@ -14,9 +15,12 @@ const MOCK_GROUPS: GroupSummary[] = [
   styleUrls: ['./groups-dashboard.component.scss'],
 })
 export class GroupsDashboardComponent implements OnInit {
-  groups: GroupSummary[] = MOCK_GROUPS;
-
-  constructor(public authService: AuthService, private router: Router) {}
+  groups: GroupSummary[] = [];
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private groupSandbox: GroupSandbox
+  ) {}
 
   selectGroup(group: GroupSummary) {
     const id = group.id;
@@ -28,5 +32,7 @@ export class GroupsDashboardComponent implements OnInit {
     console.log('create group');
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.groupSandbox.getGroups().subscribe((groups) => (this.groups = groups));
+  }
 }

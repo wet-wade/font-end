@@ -3,4 +3,5 @@ export interface DevicePermission {
   deviceId: string;
   read: boolean;
   write: boolean;
+  manage: boolean;
 }

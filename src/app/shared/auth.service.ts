@@ -38,7 +38,6 @@ export class AuthService {
   ) {
     const url = '/auth/register';
     const body = { name, username, phone, password };
-    ``;
     const { user, token } = (await this.http.post(url, body).toPromise()) as {
       user: User;
       token: string;
