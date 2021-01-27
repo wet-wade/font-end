@@ -10,6 +10,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { delay, dematerialize, materialize, mergeMap } from 'rxjs/operators';
 import {
   Device,
+  DeviceCommand,
   DeviceStatus,
   DeviceType,
   SavedDevice,
@@ -94,14 +95,8 @@ const MOCK_GROUPS: Group[] = [
     permissions: [
       { deviceId: '2', memberId: '1', manage: false, read: true, write: true },
       { deviceId: '2', memberId: '2', manage: true, read: true, write: true },
-      {
-        deviceId: '3',
-        memberId: '1',
-        manage: false,
-        read: false,
-        write: false,
-      },
-      { deviceId: '3', memberId: '2', manage: true, read: false, write: false },
+      { deviceId: '3', memberId: '1', manage: false, read: true, write: true },
+      { deviceId: '3', memberId: '2', manage: false, read: true, write: true },
     ],
   },
 ];
@@ -164,6 +159,13 @@ export class GroupsInterceptor implements HttpInterceptor {
         case /.*\/groups\/[^/]\/permissions$/g.test(url) && method === 'POST':
           const permissionsGroupId = path[path.length - 2];
           return setPermissions(permissionsGroupId);
+
+        // POST /groups/:groupId/permissions
+        case /.*\/groups\/[^/]\/devices\/[^/]\/command$/g.test(url) &&
+          method === 'POST':
+          const cmdDeviceId = path[path.length - 2];
+          const cmdGroupId = path[path.length - 4];
+          return controlDevice(cmdGroupId, cmdDeviceId);
         default:
           // pass through any requests not handled above
           return next.handle(request);
@@ -381,7 +383,7 @@ export class GroupsInterceptor implements HttpInterceptor {
       group.permissions = group.permissions
         .filter(
           (other) =>
-            other.memberId !== permissions.memberId &&
+            other.memberId !== permissions.memberId ||
             other.deviceId !== permissions.deviceId
         )
         .concat({
@@ -393,6 +395,32 @@ export class GroupsInterceptor implements HttpInterceptor {
         });
 
       return ok({ group });
+    }
+
+    function controlDevice(groupId: string, deviceId: string) {
+      const command: DeviceCommand = body.command;
+      const group = MOCK_GROUPS.find((other) => other.id === groupId);
+      if (!group) {
+        return notFound();
+      }
+      const device = group.devices.find((other) => other.id === deviceId);
+      if (!device) {
+        return notFound();
+      }
+
+      if (command === DeviceCommand.ON) {
+        device.status = DeviceStatus.ON;
+      } else if (command === DeviceCommand.OFF) {
+        device.status = DeviceStatus.OFF;
+      } else if (command === DeviceCommand.LOCK) {
+        device.data = { ...device.data, locked: true };
+      } else if (command === DeviceCommand.UNLOCK) {
+        device.data = { ...device.data, locked: false };
+      } else if (command === DeviceCommand.SET_TEMPERATURE) {
+        device.data = { ...device.data, temperature: body.input?.temperature };
+      }
+      console.log('tot ok, returning', device);
+      return ok({ device });
     }
 
     // helper functions

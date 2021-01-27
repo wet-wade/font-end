@@ -2,7 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth.service';
 import { GroupSandbox } from 'src/app/shared/group.sandbox';
-import { Device, DeviceType, SavedDevice } from 'src/app/shared/models/device';
+import {
+  Device,
+  DeviceCommand,
+  DeviceStatus,
+  DeviceType,
+  SavedDevice,
+} from 'src/app/shared/models/device';
 import { DevicePermission } from 'src/app/shared/models/device-permission';
 import { Group } from 'src/app/shared/models/group';
 import { GroupMember } from 'src/app/shared/models/user';
@@ -22,6 +28,8 @@ export class DeviceControlComponent implements OnInit {
   group: Group;
   device: SavedDevice;
   members: GroupMember;
+
+  temperature: number;
 
   permissions: (DevicePermission & { member: GroupMember })[];
   userPermissions: DevicePermission;
@@ -63,13 +71,60 @@ export class DeviceControlComponent implements OnInit {
     };
   }
 
-  toggleManage(memberId: string) {}
-  toggleRead(memberId: string) {}
-  toggleWrite(memberId: string) {}
+  toggleManage(memberId: string) {
+    const permission = this.permissions.find(
+      (other) => other.memberId === memberId
+    );
+    permission.manage = !permission.manage;
+    this.groupSandbox
+      .setPermissions(this.group.id, permission)
+      .subscribe(() => {});
+  }
 
-  togglePower() {}
+  toggleRead(memberId: string) {
+    const permission = this.permissions.find(
+      (other) => other.memberId === memberId
+    );
+    permission.read = !permission.read;
+    this.groupSandbox
+      .setPermissions(this.group.id, permission)
+      .subscribe(() => {});
+  }
+  toggleWrite(memberId: string) {
+    const permission = this.permissions.find(
+      (other) => other.memberId === memberId
+    );
+    permission.write = !permission.write;
+    this.groupSandbox
+      .setPermissions(this.group.id, permission)
+      .subscribe(() => {});
+  }
 
-  updateTemperature() {}
+  togglePower() {
+    const command =
+      this.device.status === DeviceStatus.ON
+        ? DeviceCommand.OFF
+        : DeviceCommand.ON;
+    this.groupSandbox
+      .controlDevice(this.group.id, this.device.id, command, {})
+      .subscribe((device) => (this.device = device));
+  }
 
-  toggleLock() {}
+  updateTemperature() {
+    const command = DeviceCommand.SET_TEMPERATURE;
+    this.groupSandbox
+      .controlDevice(this.group.id, this.device.id, command, {
+        temperature: this.device.data.temperature,
+      })
+      .subscribe((device) => (this.device = device));
+  }
+
+  toggleLock() {
+    const command = this.device.data.locked
+      ? DeviceCommand.UNLOCK
+      : DeviceCommand.LOCK;
+    this.groupSandbox
+      .controlDevice(this.group.id, this.device.id, command, {})
+      .subscribe((device) => (this.device = device));
+  }
 }

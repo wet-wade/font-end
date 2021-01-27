@@ -82,7 +82,7 @@
     <span>Power:</span>
     <mat-slide-toggle
       [disabled]="!userPermissions.write"
-      [ngModel]="device?.status"
+      [checked]="device?.status === 'on'"
       (change)="togglePower()"
     ></mat-slide-toggle>
   </p>
@@ -113,11 +113,11 @@
       <input
         type="number"
         [disabled]="!userPermissions?.write"
-        [ngModel]="device?.data?.temperature"
+        [(ngModel)]="device.data.temperature"
       />
     </span>
     <span>
-      <button *ngIf="!userPermissions?.write" (click)="updateTemperature()">
+      <button *ngIf="userPermissions?.write" (click)="updateTemperature()">
         <i class="fas fa-check"></i>
       </button>
     </span>

@@ -38,6 +38,20 @@
         background-color: $green;
       }
     }
+
+    .temperature-container {
+      input {
+        width: 3em;
+        background: transparent;
+        color: $white;
+        border: none;
+      }
+      button {
+        border: none;
+        background: transparent;
+        color: $white;
+      }
+    }
   }
 
   .icon-container {

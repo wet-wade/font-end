@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Device, DeviceCommand } from './models/device';
+import { Device, DeviceCommand, SavedDevice } from './models/device';
 import { DevicePermission } from './models/device-permission';
 import { Group, GroupSummary } from './models/group';
 
@@ -92,7 +92,7 @@ export class GroupSandbox {
     deviceId: string,
     command: DeviceCommand,
     input: any
-  ): Observable<Device> {
+  ): Observable<SavedDevice> {
     const url = `${environment.apiUrl}/groups/${groupId}/devices/${deviceId}/command`;
     return this.http
       .post(url, { command, input })
