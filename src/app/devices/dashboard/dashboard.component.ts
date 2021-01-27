@@ -25,7 +25,7 @@ export class DashboardComponent implements OnInit {
     this.groupSandbox.getGroup(groupId).subscribe((group) => {
       this.group = group;
       this.devices = group.devices;
-      this.isOwner = this.authService.user.value.id === group.creatorId;
+      this.isOwner = this.authService.user.value.id === group.ownerId;
     });
   }
 }

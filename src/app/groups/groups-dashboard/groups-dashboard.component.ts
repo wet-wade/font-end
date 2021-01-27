@@ -11,8 +11,8 @@ import {
 import { Group, GroupSummary } from 'src/app/shared/models/group';
 
 const MOCK_GROUPS: GroupSummary[] = [
-  { id: '1', name: 'Apartament Centru', creatorId: 'some-id' },
-  { id: '2', name: 'Acasa Suceava', creatorId: 'first-user' },
+  { id: '1', name: 'Apartament Centru', ownerId: 'some-id' },
+  { id: '2', name: 'Acasa Suceava', ownerId: 'first-user' },
 ];
 
 @Component({

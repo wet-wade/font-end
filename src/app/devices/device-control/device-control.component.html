@@ -54,21 +54,21 @@
       <div class="col">{{ permission.member?.name || "name" }}</div>
       <div class="col">
         <mat-slide-toggle
-          [disabled]="group.creatorId === permission.memberId"
+          [disabled]="group.ownerId === permission.memberId"
           [ngModel]="permission.manage"
           (change)="toggleManage(permission.memberId)"
         ></mat-slide-toggle>
       </div>
       <div class="col">
         <mat-slide-toggle
-          [disabled]="group.creatorId === permission.memberId"
+          [disabled]="group.ownerId === permission.memberId"
           [ngModel]="permission.read"
           (change)="toggleRead(permission.memberId)"
         ></mat-slide-toggle>
       </div>
       <div class="col">
         <mat-slide-toggle
-          [disabled]="group.creatorId === permission.memberId"
+          [disabled]="group.ownerId === permission.memberId"
           [ngModel]="permission.write"
           (change)="toggleWrite(permission.memberId)"
         ></mat-slide-toggle>
