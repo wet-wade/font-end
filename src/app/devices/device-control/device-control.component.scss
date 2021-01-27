@@ -46,3 +46,21 @@
     }
   }
 }
+.permissions-container {
+  color: $white;
+  margin-top: 2em;
+
+  .row {
+    padding: 0.5em 0;
+
+    .col {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:first-child {
+        justify-content: flex-start;
+      }
+    }
+  }
+}

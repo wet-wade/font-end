@@ -9,7 +9,7 @@
           <h3>{{ device?.nickname }}</h3>
           <h4>{{ device?.name }}</h4>
         </div>
-        <div class="data-container" *ngIf="userPermissions.read">
+        <div class="data-container" *ngIf="userPermissions?.read">
           <div [ngSwitch]="device?.type">
             <ng-container *ngSwitchCase="'lightbulb'">
               <ng-container
@@ -38,6 +38,45 @@
   </div>
 </app-page>
 
+<app-page
+  class="permissions-container"
+  *ngIf="userPermissions?.manage"
+  [title]="'Permissions management'"
+>
+  <div class="container">
+    <div class="row">
+      <div class="col">Member</div>
+      <div class="col">Manage</div>
+      <div class="col">Read</div>
+      <div class="col">Write</div>
+    </div>
+    <div class="row" *ngFor="let permission of permissions">
+      <div class="col">{{ permission.member?.name || "name" }}</div>
+      <div class="col">
+        <mat-slide-toggle
+          [disabled]="group.creatorId === permission.memberId"
+          [ngModel]="permission.manage"
+          (change)="toggleManage(permission.memberId)"
+        ></mat-slide-toggle>
+      </div>
+      <div class="col">
+        <mat-slide-toggle
+          [disabled]="group.creatorId === permission.memberId"
+          [ngModel]="permission.read"
+          (change)="toggleRead(permission.memberId)"
+        ></mat-slide-toggle>
+      </div>
+      <div class="col">
+        <mat-slide-toggle
+          [disabled]="group.creatorId === permission.memberId"
+          [ngModel]="permission.write"
+          (change)="toggleWrite(permission.memberId)"
+        ></mat-slide-toggle>
+      </div>
+    </div>
+  </div>
+</app-page>
+
 <ng-template #basicInfo let-device="device">
   <p>
     <span>Power:</span>
@@ -58,7 +97,7 @@
   <p>
     <span>Lock:</span>
     <mat-slide-toggle
-      [disabled]="!userPermissions.write"
+      [disabled]="!userPermissions?.write"
       [ngModel]="device?.data?.locked"
       (change)="toggleLock()"
     ></mat-slide-toggle>
@@ -73,12 +112,12 @@
     <span>
       <input
         type="number"
-        [disabled]="!userPermissions.write"
+        [disabled]="!userPermissions?.write"
         [ngModel]="device?.data?.temperature"
       />
     </span>
     <span>
-      <button *ngIf="!userPermissions.write" (click)="updateTemperature()">
+      <button *ngIf="!userPermissions?.write" (click)="updateTemperature()">
         <i class="fas fa-check"></i>
       </button>
     </span>

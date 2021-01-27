@@ -23,7 +23,7 @@ export class DeviceControlComponent implements OnInit {
   device: SavedDevice;
   members: GroupMember;
 
-  permissions: DevicePermission[];
+  permissions: (DevicePermission & { member: GroupMember })[];
   userPermissions: DevicePermission;
 
   constructor(
@@ -43,9 +43,14 @@ export class DeviceControlComponent implements OnInit {
 
     this.group = await this.groupSandbox.getGroup(groupId).toPromise();
     this.device = this.group.devices.find((other) => other.id === deviceId);
-    this.permissions = this.group.permissions.filter(
-      (other) => other.deviceId === deviceId
-    );
+    this.permissions = this.group.permissions
+      .filter((other) => other.deviceId === deviceId)
+      .map((permission) => ({
+        ...permission,
+        member: this.group.members.find(
+          (other) => other.id === permission.memberId
+        ),
+      }));
 
     this.userPermissions = this.permissions.find(
       (other) => other.memberId === this.authService.user.value.id
@@ -57,6 +62,10 @@ export class DeviceControlComponent implements OnInit {
       write: false,
     };
   }
+
+  toggleManage(memberId: string) {}
+  toggleRead(memberId: string) {}
+  toggleWrite(memberId: string) {}
 
   togglePower() {}
 
