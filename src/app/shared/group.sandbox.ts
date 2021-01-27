@@ -5,7 +5,12 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
-import { Device, DeviceCommand, SavedDevice } from './models/device';
+import {
+  Device,
+  DeviceCommand,
+  DeviceStatus,
+  SavedDevice,
+} from './models/device';
 import { DevicePermission } from './models/device-permission';
 import { Group, GroupSummary } from './models/group';
 
@@ -17,6 +22,28 @@ export class GroupSandbox {
     private cookieService: CookieService
   ) {}
 
+  private processDevice(
+    device: SavedDevice & { properties: any[] }
+  ): SavedDevice {
+    let status: DeviceStatus;
+    let available: boolean;
+    let data = {};
+    if (!device.properties) {
+      return device;
+    }
+    for (const property of device.properties) {
+      if (property.name === 'status') {
+        status = property.value;
+      } else if (property.name === 'available') {
+        available = property.value;
+      } else if (property.name === 'temperature') {
+        data = { temperature: property.value };
+      }
+    }
+
+    return { ...device, status, available, data };
+  }
+
   getGroups(): Observable<GroupSummary[]> {
     const url = `${environment.apiUrl}/groups`;
     return this.http.get(url).pipe(map((response: any) => response.groups));
@@ -24,7 +51,14 @@ export class GroupSandbox {
 
   getGroup(id: string): Observable<Group> {
     const url = `${environment.apiUrl}/groups/${id}`;
-    return this.http.get(url).pipe(map((response: any) => response.group));
+    return this.http.get(url).pipe(
+      map((response: any) => ({
+        ...response.group,
+        devices: response.group.devices.map((device) =>
+          this.processDevice(device)
+        ),
+      }))
+    );
   }
 
   getGroupSummary(id: string): Observable<GroupSummary> {
@@ -41,7 +75,13 @@ export class GroupSandbox {
 
   discover(id: string): Observable<Device[]> {
     const url = `${environment.apiUrl}/groups/${id}/discover`;
-    return this.http.get(url).pipe(map((response: any) => response.devices));
+    return this.http
+      .get(url)
+      .pipe(
+        map((response: any) =>
+          response.devices.map((device) => this.processDevice(device))
+        )
+      );
   }
 
   addDevice(

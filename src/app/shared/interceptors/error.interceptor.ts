@@ -38,9 +38,10 @@ export class ErrorInterceptor implements HttpInterceptor {
           tap(
             () => {},
             (e) => {
+              console.log(e);
               if (e.error) {
                 this.modalFactory.createConfirmationModal({
-                  content: e.error.message,
+                  content: e.error.error,
                 });
               }
             }

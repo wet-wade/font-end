@@ -94,14 +94,6 @@
 <ng-template #doorInfo let-device="device">
   <ng-container *ngTemplateOutlet="basicInfo; context: { device: device }">
   </ng-container>
-  <p>
-    <span>Lock:</span>
-    <mat-slide-toggle
-      [disabled]="!userPermissions?.write"
-      [ngModel]="device?.data?.locked"
-      (change)="toggleLock()"
-    ></mat-slide-toggle>
-  </p>
 </ng-template>
 <ng-template #hvacInfo let-device="device">
   <ng-container

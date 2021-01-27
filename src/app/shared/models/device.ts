@@ -43,6 +43,6 @@ export type OutletDevice = SavedDevice;
 
 export interface DoorDevice extends SavedDevice {
   data: {
-    locked: boolean;
+    // locked: boolean;
   };
 }

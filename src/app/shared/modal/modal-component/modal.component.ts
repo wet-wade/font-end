@@ -50,7 +50,7 @@ export class ModalComponent implements OnInit {
     viewContainer.clear();
     if (this.cfg.content instanceof TemplateRef) {
       viewContainer.createEmbeddedView(this.cfg.content);
-    } else {
+    } else if (this.cfg.content) {
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
         this.cfg.content
       );

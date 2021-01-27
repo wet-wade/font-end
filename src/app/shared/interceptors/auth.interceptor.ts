@@ -61,20 +61,11 @@ export class AuthInterceptor implements HttpInterceptor {
     );
 
     function handleRoute(token: string) {
-      switch (true) {
-        case url.endsWith('/auth/login') && method === 'POST':
-          return authenticate();
-        case url.endsWith('/auth/register') && method === 'POST':
-          return register();
-        case url.endsWith('/auth/token') && method === 'POST':
-          return authToken();
-        default:
-          // pass through any requests not handled above
-          const authReq = request.clone({
-            headers: request.headers.set('Authorization', `Bearer ${token}`),
-          });
-          return next.handle(authReq);
-      }
+      // pass through any requests not handled above
+      const authReq = request.clone({
+        headers: request.headers.set('Authorization', `JWT ${token}`),
+      });
+      return next.handle(authReq);
     }
 
     // route functions
