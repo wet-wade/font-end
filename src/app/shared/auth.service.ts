@@ -28,12 +28,10 @@ export class AuthService {
 
   async authToken() {
     if (this.isAuthenticated) {
-      console.log('is already authenticated');
       return;
     }
     const token = this.cookieService.get('wet-token');
     if (!token) {
-      console.log('there is no token');
       return;
     }
 
@@ -42,7 +40,6 @@ export class AuthService {
       user: User;
     };
 
-    console.log('new user', token, user);
     if (user) {
       this.user.next(user.user as User);
     }

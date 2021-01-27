@@ -36,3 +36,9 @@
     </div>
   </div>
 </app-page>
+
+<ng-template #shareModal>
+  <div class="share-container">
+    <input (click)="toClipboard($event)" readonly value="{{ link }}" />
+  </div>
+</ng-template>

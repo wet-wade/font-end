@@ -65,7 +65,6 @@ export class GroupSandbox {
   }
 
   joinGroupAsVisitor(id: string, name: string): Observable<void> {
-    console.log('joining group');
     const url = `${environment.apiUrl}/groups/${id}/members`;
     return this.http.post(url, { name }).pipe(
       map((response: any) => {

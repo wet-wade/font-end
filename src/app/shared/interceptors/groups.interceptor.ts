@@ -310,9 +310,6 @@ export class GroupsInterceptor implements HttpInterceptor {
     }
 
     function joinGroup(groupId: string) {
-      console.log('CALLING JOIN GROUP');
-      console.log(groupId);
-      console.log(MOCK_GROUPS);
       const user = getAuth();
       if (!user && !body.name) {
         return throwError({
@@ -339,7 +336,9 @@ export class GroupsInterceptor implements HttpInterceptor {
       }
 
       const group = MOCK_GROUPS.find((other) => other.id === groupId);
-      group.members.push(newMember);
+      group.members = group.members
+        .filter((other) => other.id !== newMember.id)
+        .concat(newMember);
 
       return ok(body.name ? { visitor: newMember, token } : {});
     }
@@ -419,7 +418,6 @@ export class GroupsInterceptor implements HttpInterceptor {
       } else if (command === DeviceCommand.SET_TEMPERATURE) {
         device.data = { ...device.data, temperature: body.input?.temperature };
       }
-      console.log('tot ok, returning', device);
       return ok({ device });
     }
 
