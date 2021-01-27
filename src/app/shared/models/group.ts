@@ -5,7 +5,7 @@ import { GroupMember } from './user';
 export interface GroupSummary {
   id: string;
   name: string;
-  creatorId: string;
+  ownerId: string;
 }
 export interface Group extends GroupSummary {
   members: GroupMember[];

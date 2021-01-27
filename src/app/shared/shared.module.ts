@@ -58,12 +58,12 @@ import { PageComponent } from './page/page.component';
       useClass: AuthInterceptor,
       multi: true,
     },
-    {
-      // use fake backend in place of Http service for backend-less development
-      provide: HTTP_INTERCEPTORS,
-      useClass: GroupsInterceptor,
-      multi: true,
-    },
+    // {
+    //   // use fake backend in place of Http service for backend-less development
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: GroupsInterceptor,
+    //   multi: true,
+    // },
   ],
 })
 export class SharedModule {}

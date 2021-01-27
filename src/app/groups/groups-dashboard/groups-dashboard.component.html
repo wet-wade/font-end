@@ -37,7 +37,7 @@
         <div class="buttons-container">
           <div
             class="button-container"
-            *ngIf="authService.user.value?.id === group.creatorId"
+            *ngIf="authService.user.value?.id === group.ownerId"
           >
             <button [routerLink]="['/groups', group?.id, 'settings']">
               <i class="fas fa-cog"></i>

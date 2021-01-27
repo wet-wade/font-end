@@ -73,7 +73,7 @@ const MOCK_DISCOVER: Device[] = [
 const MOCK_GROUPS: Group[] = [
   {
     id: '1',
-    creatorId: '1',
+    ownerId: '1',
     name: 'Apartament centru',
     devices: MOCK_DEVICES.slice(0, 1),
     members: MOCK_USERS.map((user) => ({ id: user.id, name: user.name })),
@@ -85,7 +85,7 @@ const MOCK_GROUPS: Group[] = [
   },
   {
     id: '2',
-    creatorId: '2',
+    ownerId: '2',
     name: 'Acasa Suceava',
     devices: MOCK_DEVICES.slice(1, 3),
     members: MOCK_USERS.slice(0, 2).map((user) => ({
@@ -185,7 +185,7 @@ export class GroupsInterceptor implements HttpInterceptor {
       ).map((group) => ({
         id: group.id,
         name: group.name,
-        creatorId: group.creatorId,
+        ownerId: group.ownerId,
       }));
 
       return ok({
@@ -201,7 +201,7 @@ export class GroupsInterceptor implements HttpInterceptor {
 
       const newGroup: Group = {
         id: String(MOCK_GROUPS.length + 1),
-        creatorId: user.id,
+        ownerId: user.id,
         name: body.name,
         members: [{ id: user.id, name: user.name }],
         devices: [],
@@ -232,7 +232,7 @@ export class GroupsInterceptor implements HttpInterceptor {
         group: {
           id: group.id,
           name: group.name,
-          creatorId: group.creatorId,
+          ownerId: group.ownerId,
           members: group.members,
           devices: group.devices,
           permissions: group.permissions,
@@ -264,7 +264,7 @@ export class GroupsInterceptor implements HttpInterceptor {
         return notFound();
       }
 
-      if (group.creatorId !== user.id) {
+      if (group.ownerId !== user.id) {
         return unauthorized();
       }
 
@@ -286,7 +286,7 @@ export class GroupsInterceptor implements HttpInterceptor {
         return notFound();
       }
 
-      if (group.creatorId !== user.id) {
+      if (group.ownerId !== user.id) {
         return unauthorized();
       }
 
@@ -299,7 +299,7 @@ export class GroupsInterceptor implements HttpInterceptor {
       };
       group.devices.push(savedDevice);
       group.permissions.push({
-        memberId: group.creatorId,
+        memberId: group.ownerId,
         deviceId: device.id,
         manage: true,
         write: true,
