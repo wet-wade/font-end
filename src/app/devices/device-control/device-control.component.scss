@@ -1,0 +1,48 @@
+@import "variables.scss";
+
+.device-container {
+  .title-container {
+    color: $white;
+    font-family: $font-bold;
+    margin-top: 1em;
+
+    h3 {
+      font-size: $title-regular;
+      margin-bottom: 0;
+    }
+    h4 {
+      font-size: $paragraph-large;
+    }
+  }
+
+  .data-container {
+    margin-top: 1em;
+    p {
+      margin: 0.3em 0;
+      color: $white;
+      display: flex;
+      align-items: center;
+      span:first-child {
+        margin-right: 1em;
+      }
+    }
+
+    .status {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background-color: $white;
+
+      &.available {
+        background-color: $green;
+      }
+    }
+  }
+
+  .icon-container {
+    img {
+      max-height: 200px;
+    }
+  }
+}

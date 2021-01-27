@@ -10,6 +10,10 @@
   background-color: transparent;
 }
 
+mat-form-field {
+  width: 100%;
+}
+
 .modal-header {
   border-bottom: 1px solid darken($dark-gray, 10%);
   h4 {

@@ -101,6 +101,7 @@ export class AuthInterceptor implements HttpInterceptor {
     function authToken() {
       const token = body.token;
       const user = MOCK_USERS.find((x) => x.jwt === token);
+      console.log(token, user, MOCK_USERS);
       return ok({ user });
     }
 

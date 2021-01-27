@@ -20,6 +20,7 @@ export class DeviceComponent implements OnInit {
   @Input() type: DeviceType;
   @Input() data: any;
   @Input() status: DeviceStatus;
+  @Input() groupId: string;
 
   get icon() {
     return ICONS[this.type];

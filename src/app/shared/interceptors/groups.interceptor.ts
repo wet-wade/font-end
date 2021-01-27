@@ -94,8 +94,14 @@ const MOCK_GROUPS: Group[] = [
     permissions: [
       { deviceId: '2', memberId: '1', manage: false, read: true, write: true },
       { deviceId: '2', memberId: '2', manage: true, read: true, write: true },
-      { deviceId: '3', memberId: '1', manage: false, read: true, write: true },
-      { deviceId: '3', memberId: '2', manage: true, read: true, write: true },
+      {
+        deviceId: '3',
+        memberId: '1',
+        manage: false,
+        read: false,
+        write: false,
+      },
+      { deviceId: '3', memberId: '2', manage: true, read: false, write: false },
     ],
   },
 ];

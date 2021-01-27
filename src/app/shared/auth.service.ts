@@ -28,20 +28,23 @@ export class AuthService {
 
   async authToken() {
     if (this.isAuthenticated) {
+      console.log('is already authenticated');
       return;
     }
     const token = this.cookieService.get('wet-token');
     if (!token) {
+      console.log('there is no token');
       return;
     }
 
     const url = `${environment.apiUrl}/auth/token`;
-    const { user } = (await this.http.post(url, { token }).toPromise()) as {
+    const user = (await this.http.post(url, { token }).toPromise()) as {
       user: User;
     };
 
+    console.log('new user', token, user);
     if (user) {
-      this.user.next(user as User);
+      this.user.next(user.user as User);
     }
   }
 

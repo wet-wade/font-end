@@ -1,1 +1,86 @@
-<p>device-control works!</p>
+<app-page [title]="'Device settings'">
+  <div class="device-container container">
+    <div class="row">
+      <div class="col icon-container">
+        <img [src]="icon" alt="" />
+      </div>
+      <div class="col info-container">
+        <div class="title-container">
+          <h3>{{ device?.nickname }}</h3>
+          <h4>{{ device?.name }}</h4>
+        </div>
+        <div class="data-container" *ngIf="userPermissions.read">
+          <div [ngSwitch]="device?.type">
+            <ng-container *ngSwitchCase="'lightbulb'">
+              <ng-container
+                *ngTemplateOutlet="basicInfo; context: { device: device }"
+              ></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'outlet'">
+              <ng-container
+                *ngTemplateOutlet="basicInfo; context: { device: device }"
+              ></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'door'">
+              <ng-container
+                *ngTemplateOutlet="doorInfo; context: { device: device }"
+              ></ng-container>
+            </ng-container>
+            <ng-container *ngSwitchCase="'hvac'">
+              <ng-container
+                *ngTemplateOutlet="hvacInfo; context: { device: device }"
+              ></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-page>
+
+<ng-template #basicInfo let-device="device">
+  <p>
+    <span>Power:</span>
+    <mat-slide-toggle
+      [disabled]="!userPermissions.write"
+      [ngModel]="device?.status"
+      (change)="togglePower()"
+    ></mat-slide-toggle>
+  </p>
+  <p>
+    <span>Available:</span>
+    <span class="status" [class.available]="device?.available"></span>
+  </p>
+</ng-template>
+<ng-template #doorInfo let-device="device">
+  <ng-container *ngTemplateOutlet="basicInfo; context: { device: device }">
+  </ng-container>
+  <p>
+    <span>Lock:</span>
+    <mat-slide-toggle
+      [disabled]="!userPermissions.write"
+      [ngModel]="device?.data?.locked"
+      (change)="toggleLock()"
+    ></mat-slide-toggle>
+  </p>
+</ng-template>
+<ng-template #hvacInfo let-device="device">
+  <ng-container
+    *ngTemplateOutlet="basicInfo; context: { device: device }"
+  ></ng-container>
+  <p class="temperature-container">
+    <span>Temperature:</span>
+    <span>
+      <input
+        type="number"
+        [disabled]="!userPermissions.write"
+        [ngModel]="device?.data?.temperature"
+      />
+    </span>
+    <span>
+      <button *ngIf="!userPermissions.write" (click)="updateTemperature()">
+        <i class="fas fa-check"></i>
+      </button>
+    </span>
+  </p>
+</ng-template>
